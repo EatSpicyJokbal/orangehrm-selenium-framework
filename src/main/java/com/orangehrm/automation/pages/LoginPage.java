@@ -4,11 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.orangehrm.automation.base.BasePage;
+import static com.orangehrm.automation.utils.GetUtility.getText;
 import static com.orangehrm.automation.utils.WaitUtility.fluentWaitUntilVisible;
 
 public class LoginPage extends BasePage{
     private final By usernameInput = By.xpath("//div[@id='app']//input[@name='username']");
     private final By passwordInput = By.xpath("//div[@id='app']//input[@name='password']");
+    private final By dashboardTitle = By.xpath("//div[@id='app']//h6[text()='Dashboard']");
+    private final By invalidCredentials = By.xpath("//div[@id='app']//p[text()='Invalid credentials']");
 
     private final By loginButton = By.xpath("//div[@id='app']//button[@type='submit']");
 
@@ -28,5 +31,15 @@ public class LoginPage extends BasePage{
 
     public void clickLoginButton() {
         click(loginButton);
+    }
+
+    public String getDashboardTitle() {
+        fluentWaitUntilVisible(dashboardTitle, 10);
+        return getText(dashboardTitle);
+    }
+
+    public String getInvalidCredentials() {
+        fluentWaitUntilVisible(invalidCredentials, 10);
+        return getText(invalidCredentials);
     }
 }
